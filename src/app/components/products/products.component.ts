@@ -1,17 +1,18 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Product } from 'src/app/interface/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 import { faker } from '@faker-js/faker';
 import { ProductSeed } from 'src/app/interface/product-seed.interface';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Display } from 'src/app/enums/display.enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit{
+export class ProductsComponent implements OnInit, OnDestroy {
 
   private productService = inject(ProductService);
   public breakpointObserver = inject(BreakpointObserver);
@@ -20,14 +21,19 @@ export class ProductsComponent implements OnInit{
   loading : boolean = true;
   EnumDisplay = Display;
   display !: Display;
+  sub !: Subscription;
 
   ngOnInit(): void {
     this.getProducts();
     this.querys();
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
   querys() {
-    this.breakpointObserver.observe(Breakpoints.Small).subscribe({
+    this.sub = this.breakpointObserver.observe(Breakpoints.Small).subscribe({
       next: (state: BreakpointState) => {
           if (state.matches)  this.display = Display.phone;
           else this.display = Display.desktop;
