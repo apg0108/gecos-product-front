@@ -41,10 +41,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  get lenghtProducts() {
-    return this.products?.length ?? 0;
-  }
-
   getProducts() {
     this.productService.getProducts().subscribe({
       next: products => {

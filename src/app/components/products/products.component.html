@@ -11,7 +11,7 @@
     </div>
   </div>
   <mat-spinner *ngIf="loading"></mat-spinner>
-  <ng-container *ngIf="!loading && lenghtProducts > 0">
+  <ng-container *ngIf="!loading">
     <input #txtFind type="text" placeholder="Buscar" class="form-control my-2" (keyup)="buscar(txtFind.value)">
     <div class="mt-4">
       <mat-card>
@@ -42,5 +42,4 @@
       </mat-card>
     </div>
   </ng-container>
-  <p class="text-center" *ngIf="lenghtProducts === 0">No existen productos!</p>
 </div>
