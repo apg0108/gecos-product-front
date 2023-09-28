@@ -1,0 +1,46 @@
+<div>
+  <div class="row">
+    <div class="col-10">
+      <h2>Productos</h2>
+    </div>
+    <div class="col-1">
+      <button mat-button color="primary" routerLink="new">Crear</button>
+    </div>
+    <div class="col-1">
+      <button mat-button (click)="regenerar()">Regenerar</button>
+    </div>
+  </div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <ng-container *ngIf="!loading && lenghtProducts > 0">
+    <input #txtFind type="text" placeholder="Buscar" class="form-control my-2" (keyup)="buscar(txtFind.value)">
+    <div class="mt-4">
+      <mat-card>
+        <mat-card-content *ngFor="let p of products">
+          <div class="row">
+            <div class="product-code col-md-1" *ngIf="display === EnumDisplay.desktop">{{p.code}}</div>
+            <div class="col-md-10">
+              <a [routerLink]="[p.id]" [queryParams]="{action : 'view'}">{{p.name}}</a>
+              <p *ngIf="display === EnumDisplay.phone">{{p.code}}</p>
+            </div>
+            <div class="col-md-1">
+              <button class="acciones" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="[p.id]" [queryParams]="{action: 'edit'}">
+                  <mat-icon>edit</mat-icon>
+                  <span>Editar</span>
+                </button>
+                <button mat-menu-item (click)="deleteProduct(p.id)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Eliminar</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+  <p class="text-center" *ngIf="lenghtProducts === 0">No existen productos!</p>
+</div>

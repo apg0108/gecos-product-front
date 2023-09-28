@@ -1,0 +1,9 @@
+.button-form {
+  text-align: right;
+}
+
+@media (max-width: 991px) {
+  .button-form {
+    text-align: center !important;
+  }
+}

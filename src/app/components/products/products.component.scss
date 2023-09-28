@@ -1,0 +1,18 @@
+mat-card-content {
+  background-color: rgb(201 201	201);
+  border: none;
+  border-radius: 5px;
+  padding: 6px 0 0 4px !important;
+}
+
+mat-card-content:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+.product-code {
+  padding-right: 0;
+}
+
+.acciones {
+  padding: 0 !important;
+}
